@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+   http://www.springframework.org/schema/context     
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   <!-- action -->
+   <bean name="userAction" class="ek.zhou.crm.web.action.UserAction" scope="prototype">
+   		<property name="userService" ref="userService"></property>
+   	</bean>
+   	
+   	<bean name="dictionaryAction" class="ek.zhou.crm.web.action.DictionaryAction" scope="prototype">
+   		<property name="dictionaryService" ref="dictionaryService"></property>
+   	</bean>
+   	
+   	<bean name="customerAction" class="ek.zhou.crm.web.action.CustomerAction" scope="prototype">
+   		<property name="customerService" ref="customerService"></property>
+   	</bean>
+   <!-- service -->
+ 	<bean name="userService" class="ek.zhou.crm.service.imp.UserServiceImp">
+ 		<property name="userDao" ref="userDao"></property>
+ 	</bean>
+ 	
+ 	<bean name="dictionaryService" class="ek.zhou.crm.service.imp.DictionaryServiceImp">
+ 		<property name="dictionaryDao" ref="dictionaryDao"></property>
+ 	</bean>
+ 	
+ 		<bean name="customerService" class="ek.zhou.crm.service.imp.CustomerServiceImp">
+ 		<property name="customerDao" ref="customerDao"></property>
+ 	</bean>
+ 	
+   <!-- dao -->
+   <bean name="userDao" class="ek.zhou.crm.dao.imp.UserDaoImp">
+ 		<property name="sessionFactory" ref="sf"></property>
+ 	</bean>
+ 	
+ 	 <bean name="dictionaryDao" class="ek.zhou.crm.dao.imp.DictionaryDaoImp">
+ 		<property name="sessionFactory" ref="sf"></property>
+ 	</bean>
+ 	
+ 	 <bean name="customerDao" class="ek.zhou.crm.dao.imp.CustomerDaoImp">
+ 		<property name="sessionFactory" ref="sf"></property>
+ 	</bean>
+ 	
+ 	<!-- c3p0配置 -->
+ 	<bean name="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+ 		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+ 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/crm?characterEncoding=UTF-8"></property>
+ 		<property name="user" value="root"></property>
+ 		<property name="password" value="admin"></property>
+ 	</bean>
+ 	<!-- 配置Hibernate的相关配置 -->
+ 	<bean name="sf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+ 		<!-- 注入连接池 -->
+ 		<property name="dataSource" ref="ds"></property>
+ 		<!-- 配置Hibernate的相关属性  -->
+ 		<property name="hibernateProperties">
+ 			<props>
+ 				<!-- 配置Hibernate的方言 -->
+ 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+ 				<!-- 显示sql -->
+ 				<prop key="hibernate.show_sql">true</prop>
+ 				<!-- 格式化sql -->
+ 				<prop key="hibernate.format_sql">true</prop>
+ 				<!-- 映射到DDL的自动创建 -->
+ 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+ 			</props>
+ 		</property>
+ 		<!-- 加载Hibernate的映射文件 -->
+ 		<property name="mappingResources">
+ 			<list>
+ 				<value>ek/zhou/crm/domain/User.hbm.xml</value>
+ 				<value>ek/zhou/crm/domain/Dictionary.hbm.xml</value>
+ 				<value>ek/zhou/crm/domain/Customer.hbm.xml</value>
+ 			</list>
+ 		</property>
+ 	</bean>
+ 	<!-- 配置事务管理器 -->
+ 	<bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sf"></property> 		
+ 	</bean>
+ 	<!-- 开启注解事务 -->
+ 	<tx:annotation-driven transaction-manager="transactionManager"/>
+   </beans>
