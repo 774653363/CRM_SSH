@@ -1,5 +1,8 @@
 package ek.zhou.crm.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Customer {
 private int  cust_id;
 private String cust_name;
@@ -12,6 +15,7 @@ private String cust_linkman;
 private String cust_image;
 private String cust_phone;
 private String cust_mobile;
+private Set<Linkman> linkmans = new HashSet<>();
 public Customer() {
 	// TODO Auto-generated constructor stub
 }
@@ -80,6 +84,14 @@ public String getCust_mobile() {
 }
 public void setCust_mobile(String cust_mobile) {
 	this.cust_mobile = cust_mobile;
+}
+
+
+public Set<Linkman> getLinkmans() {
+	return linkmans;
+}
+public void setLinkmans(Set<Linkman> linkmans) {
+	this.linkmans = linkmans;
 }
 @Override
 public String toString() {

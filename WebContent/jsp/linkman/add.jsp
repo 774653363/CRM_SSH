@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    
+<%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +16,7 @@
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/linkmanServlet?method=addsubmit"
+		action="${pageContext.request.contextPath }/addLinkman"
 		method=post>
 		
 
@@ -47,30 +49,55 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px"/></td>
+								<td colspan="3">
+									<s:select theme="simple" name="linkman.customer.cust_id"  list="customers" listKey="cust_id" listValue="cust_name"></s:select>								
+								</td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmName">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_name">
 								</td>
 								<td>联系人性别：</td>
 								<td>
-								<input type="radio" value="1" name="lkmGender">男
-								<input type="radio" value="2" name="lkmGender">女
+								<input type="radio" value="男" name="linkman.lkm_gender">男
+								<input type="radio" value="女" name="linkman.lkm_gender">女
 								</td>
 							</TR>
 							<TR>
 								<td>联系人办公电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmPhone">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_phone">
 								</td>
 								<td>联系人手机 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmMobile">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_mobile">
+								</td>
+							</TR>
+							<TR>
+								<td>联系人邮箱 ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_email">
+								</td>
+								<td>联系人QQ ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_qq">
+								</td>
+							</TR>
+							<TR>
+								<td>联系人职位 ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_position">
+								</td>
+								<td>联系人备注：</td>
+								<td>
+								<textarea rows="4" cols="12" name="linkman.lkm_memo"></textarea>
 								</td>
 							</TR>
 							<tr>

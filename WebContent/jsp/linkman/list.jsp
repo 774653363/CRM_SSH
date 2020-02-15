@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@taglib uri="/struts-tags"  prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +24,7 @@
 </HEAD>
 <BODY>
 	<FORM id="customerForm" name="customerForm"
-		action="${pageContext.request.contextPath }/linkmanServlet?method=list"
+		action="${pageContext.request.contextPath }/findAllLinkman.action"
 		method=post>
 		
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -61,8 +62,14 @@
 											<TBODY>
 												<TR>
 													<TD>联系人名称：</TD>
-													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="lkmName"></TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2
+															style="WIDTH: 80px" maxLength=50 name="linkman.lkm_name" value="${linkman.lkm_name }">
+													</TD>
+													<TD>联系人性别：</TD>
+													<TD>
+														<s:select list="{'男','女'}" value="linkman.lkm_gender" name="linkman.lkm_gender" theme="simple" headerKey=""  headerValue="--请选择--"></s:select>
+													</TD>
 													
 													<TD><INPUT class=button id=sButton2 type=submit
 														value=" 筛选 " name=sButton2></TD>
@@ -84,24 +91,34 @@
 													<TD>性别</TD>
 													<TD>办公电话</TD>
 													<TD>手机</TD>
+													<TD>邮箱</TD>
+													<TD>QQ</TD>
+													<TD>职位</TD>
+													<TD>备注</TD>
+													<TD>客户名字</TD>
 													<TD>操作</TD>
 												</TR>
-												<c:forEach items="${list }" var="linkman">
+												<s:iterator value="page.data" var="l">
+												
 												<TR
 													style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-													<TD>${linkman.lkmName }</TD>
-													<TD>${linkman.lkmGender }</TD>
-													<TD>${linkman.lkmPhone }</TD>
-													<TD>${linkman.lkmMobile }</TD>
-													
+													<TD>${l.lkm_name }</TD>
+													<TD>${l.lkm_gender }</TD>
+													<TD>${l.lkm_phone }</TD>
+													<TD>${l.lkm_mobile }</TD>
+													<TD>${l.lkm_email }</TD>
+													<TD>${l.lkm_qq }</TD>
+													<TD>${l.lkm_position }</TD>
+													<TD>${l.lkm_memo }</TD>
+													<TD>${l.customer.cust_name }</TD>
 													<TD>
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkmId}">修改</a>
+													<a href="${pageContext.request.contextPath }/editLinkman.action?linkman.lkm_id=${l.lkm_id}">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkmId}">删除</a>
+													<a href="${pageContext.request.contextPath }/deleteLinkman?linkman.lkm_id=${l.lkm_id}">删除</a>
 													</TD>
 												</TR>
 												
-												</c:forEach>
+												</s:iterator>
 
 											</TBODY>
 										</TABLE>
@@ -110,26 +127,39 @@
 								
 								<TR>
 									<TD><SPAN id=pagelink>
-											<DIV
-												style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												共[<B>${total}</B>]条记录,[<B>${totalPage}</B>]页
+											<DIV style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
+												共[<B>${page.totalRecord}</B>]条记录,[<B>${page.totalPage}</B>]页
 												,每页显示
-												<select name="pageSize">
-												
-												<option value="1" <c:if test="${pageSize==1 }">selected</c:if>>1</option>
-												<option value="30" <c:if test="${pageSize==30 }">selected</c:if>>30</option>
+												<select name="pageSize" onchange="to_page(1)">
+													<option value="5" ${page.pageSize==5 ?"selected" :""}>5</option>
+													<option value="10"  ${page.pageSize==10 ?"selected" :""}>10</option>
 												</select>
 												条
-												[<A href="javascript:to_page(${page-1})">前一页</A>]
-												<B>${page}</B>
-												[<A href="javascript:to_page(${page+1})">后一页</A>] 
+												
+												<s:if test="page.pageNumber!=1">
+													[<A href="javascript:to_page(${page.pageNumber-1})">前一页</A>]
+												</s:if>
+												<s:bean name="org.apache.struts2.util.Counter" id="counter">
+													<s:param name="first" value="1"></s:param>
+													<s:param name="last" value="page.totalPage"></s:param>
+													<s:iterator>
+															<A href="javascript:to_page(<s:property/>)"><s:property/></A>
+													</s:iterator>
+												</s:bean>
+												
+												
+												<s:if test="page.pageNumber!=page.totalPage">
+													[<A href="javascript:to_page(${page.pageNumber+1})">后一页</A>] 
+												</s:if>
+												
 												到
-												<input type="text" size="3" id="page" name="page" />
+												<input type="text" size="3" id="page" name="pageNumber" />
 												页
 												
 												<input type="button" value="Go" onclick="to_page()"/>
 											</DIV>
 									</SPAN></TD>
+									
 								</TR>
 							</TBODY>
 						</TABLE>

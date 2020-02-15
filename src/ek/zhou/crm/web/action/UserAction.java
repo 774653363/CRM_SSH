@@ -40,7 +40,7 @@ public class UserAction extends ActionSupport{
 			//登录失败,添加错误信息
 			this.addActionError("用户名或密码错误!");
 			//跳转页面
-			return"login";
+			return"fail";
 		}else{
 			//登录成功,将user存入session
 			ActionContext.getContext().getSession().put("existUser", existUser);

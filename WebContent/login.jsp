@@ -54,13 +54,22 @@ style="LEFT: 0px; POSITION: absolute; TOP: 0px; BACKGROUND-COLOR: #0066ff"></DIV
         <TBODY>
         <TR>
           <TD colSpan=2 height=35>
-          <s:actionerror/>
+        
           </TD></TR>
         <TR>
-          <TD width=360></TD>
+          <TD width=360>  
+          
+      		 
+          
+          </TD>
           <TD>
             <TABLE cellSpacing=0 cellPadding=2 border=0>
               <TBODY>
+              <tr>
+              	<td colspan="3" align="left">
+              		   <s:actionerror/>
+              	</td>
+              </tr>
               <TR>
                 <TD style="HEIGHT: 28px" width=80>登 录 名：</TD>
                 <TD style="HEIGHT: 28px" width=150><INPUT id=txtName 

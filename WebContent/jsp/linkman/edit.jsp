@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@taglib uri="/struts-tags"  prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,9 +15,9 @@
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/linkmanServlet?method=editsubmit"
+		action="${pageContext.request.contextPath }/updateLinkman"
 		method=post>
-		<input type="hidden" name="lkmId" value="${linkman.lkmId }"/>
+		<input type="hidden" name="linkman.lkm_id" value="${linkman.lkm_id }"/>
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
@@ -47,33 +48,58 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px" value="${linkman.cstCustomer.custId}" /></td>
+								<td colspan="3">
+									<s:select theme="simple" value="linkman.customer.cust_id" name="linkman.customer.cust_id"  list="customers" listKey="cust_id" listValue="cust_name" ></s:select>								
+								</td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmName" value="${linkman.lkmName}" >
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_name" value="${linkman.lkm_name}" >
 								</td>
 								<td>联系人性别：</td>
 								<td>
-								<input type="radio" value="1" name="lkmGender" <c:if test="${linkman.lkmGender=='1' }">checked</c:if>>男
-								
-								<input type="radio" value="2" name="lkmGender" <c:if test="${linkman.lkmGender=='2' }">checked</c:if>>女
+								<s:radio list="{'男','女'}" value="linkman.lkm_gender" name="linkman.lkm_gender" theme="simple" ></s:radio>
 								</td>
 							</TR>
 							<TR>
 								<td>联系人办公电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmPhone" value="${linkman.lkmPhone}">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_phone" value="${linkman.lkm_phone}">
 								</td>
 								<td>联系人手机 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmMobile" value="${linkman.lkmMobile}">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_mobile" value="${linkman.lkm_mobile}">
 								</td>
 							</TR>
+							
+							<TR>
+								<td>联系人邮箱 ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_email" value="${linkman.lkm_email}">
+								</td>
+								<td>联系人QQ ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_qq" value="${linkman.lkm_qq}">
+								</td>
+							</TR>
+							<TR>
+								<td>联系人职位 ：</td>
+								<td>
+								<INPUT class=textbox id=sChannel2
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_position" value="${linkman.lkm_position}">
+								</td>
+								<td>联系人备注：</td>
+								<td>
+								<textarea rows="4" cols="12" name="linkman.lkm_memo" >${linkman.lkm_memo}</textarea>
+								</td>
+							</TR>
+							
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit

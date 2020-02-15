@@ -17,5 +17,10 @@
 		<property name="cust_image"></property>
 		<property name="cust_phone"></property>
 		<property name="cust_mobile"></property>
+		<!-- 客户关联联系人集合 -->
+		<set name="linkmans"  inverse="true" cascade="delete">
+			<key column="lkm_cust_id"></key>
+			<one-to-many class="Linkman"/>
+		</set>
 	</class>
 </hibernate-mapping>

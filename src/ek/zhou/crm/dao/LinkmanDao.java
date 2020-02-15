@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
-import ek.zhou.crm.domain.Customer;
+import ek.zhou.crm.domain.Linkman;
 
-public interface CustomerDao extends BaseDao<Customer>{
+public interface LinkmanDao extends BaseDao<Linkman>{
 
 
 }

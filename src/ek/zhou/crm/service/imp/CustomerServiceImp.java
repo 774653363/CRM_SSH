@@ -72,4 +72,11 @@ public class CustomerServiceImp  implements CustomerService{
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
 	}
+
+
+
+	@Override
+	public List<Customer> findAll() {
+		return customerDao.findAll();
+	}
 }

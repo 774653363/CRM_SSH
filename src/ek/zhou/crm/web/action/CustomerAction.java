@@ -65,7 +65,6 @@ public class CustomerAction extends ActionSupport{
 		}
 		//调用业务层查询
 		page = customerService.findAll(detachedCriteria,pageNumber,pageSize);
-		System.out.println(page.getData());
 		return "list";
 	}
 	/**

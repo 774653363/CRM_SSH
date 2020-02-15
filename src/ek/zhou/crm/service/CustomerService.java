@@ -1,5 +1,7 @@
 package ek.zhou.crm.service;
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 
 import ek.zhou.crm.domain.Customer;
@@ -16,5 +18,7 @@ public interface CustomerService {
 	Customer findById(int cust_id);
 
 	void update(Customer customer);
+
+	List<Customer> findAll();
 
 }

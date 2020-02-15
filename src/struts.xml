@@ -10,6 +10,7 @@
 		<action name="*User" class="userAction" method="{1}">
 			<result name="registUI" type="redirect">regist.htm</result>
 			<result name="login" type="redirect">login.jsp</result>
+			<result name="fail" >login.jsp</result>
 			<result name="success" type="redirect">index.jsp</result>
 		</action>
 		
@@ -17,7 +18,7 @@
 			<result name="listJsp" type="redirect">/findAllCustomer.action?pageSize=${pageSize}</result>
 			<result name="list" >/jsp/customer/list.jsp</result>
 			<result name="edit" >/jsp/customer/edit.jsp</result>
-			<result name="addUI" >/jsp/customer/add.jsp</result>
+			<result name="addUI">/jsp/customer/add.jsp</result>
 			<interceptor-ref name="defaultStack">
 				<param name="fileUpload.maximumSize">2097152</param>
 				<param name="fileUpload.allowedExtensions">.jpg</param>
@@ -25,6 +26,13 @@
 		</action>
 		
 		<action name="*Dictionary" class="dictionaryAction" method="{1}">
+		</action>
+		
+		<action name="*Linkman" class="linkmanAction" method="{1}">
+			<result name="listJsp" type="redirect">/findAllLinkman.action?pageSize=${pageSize}</result>
+			<result name="list" >/jsp/linkman/list.jsp</result>
+			<result name="addUI" >/jsp/linkman/add.jsp</result>
+			<result name="edit" >/jsp/linkman/edit.jsp</result>
 		</action>
 	</package>
 </struts>
