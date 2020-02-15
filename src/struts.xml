@@ -6,12 +6,24 @@
 <struts>
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<constant name="struts.objectFactory" value="spring"></constant>
-	<package name="struts" extends="struts-default">
-		<action name="*User" class="userAction" method="{1}">
-			<result name="registUI" type="redirect">regist.htm</result>
+	
+	<package name="struts" extends="struts-default" namespace="/">
+		<!-- 定义拦截器 -->
+		<interceptors>
+			<interceptor name="privilegeInterceptor" class="ek.zhou.crm.web.interceptor.PrivilegeInterceptor"></interceptor>
+		</interceptors>
+		<global-results>
 			<result name="login" type="redirect">login.jsp</result>
 			<result name="fail" >login.jsp</result>
+		</global-results>
+		
+		<action name="*User" class="userAction" method="{1}">
+			<result name="registUI" type="redirect">regist.htm</result>
 			<result name="success" type="redirect">index.jsp</result>
+			<interceptor-ref name="privilegeInterceptor">
+				<param name="excludeMethods">registUI,regist,login</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		
 		<action name="*Customer" class="customerAction" method="{1}">
@@ -19,6 +31,7 @@
 			<result name="list" >/jsp/customer/list.jsp</result>
 			<result name="edit" >/jsp/customer/edit.jsp</result>
 			<result name="addUI">/jsp/customer/add.jsp</result>
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
 			<interceptor-ref name="defaultStack">
 				<param name="fileUpload.maximumSize">2097152</param>
 				<param name="fileUpload.allowedExtensions">.jpg</param>
@@ -26,6 +39,8 @@
 		</action>
 		
 		<action name="*Dictionary" class="dictionaryAction" method="{1}">
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		
 		<action name="*Linkman" class="linkmanAction" method="{1}">
@@ -33,6 +48,18 @@
 			<result name="list" >/jsp/linkman/list.jsp</result>
 			<result name="addUI" >/jsp/linkman/add.jsp</result>
 			<result name="edit" >/jsp/linkman/edit.jsp</result>
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
+		
+		<action name="*SaleVisit" class="saleVisitAction" method="{1}">
+			<result name="listJsp" type="redirect">/findAllSaleVisit.action?pageSize=${pageSize}</result>
+			<result name="list" >/jsp/salevisit/list.jsp</result>
+			<result name="addUI" >/jsp/salevisit/add.jsp</result>
+			<result name="edit" >/jsp/salevisit/edit.jsp</result>
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
 	</package>
 </struts>

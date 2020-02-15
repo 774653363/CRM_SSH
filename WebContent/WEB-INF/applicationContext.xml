@@ -29,6 +29,11 @@
    		<property name="customerService" ref="customerService"></property>
    	</bean>
    	
+   	<bean name="saleVisitAction" class="ek.zhou.crm.web.action.SaleVisitAction" scope="prototype">
+   		<property name="saleVisitService" ref="saleVisitService"></property>
+   		<property name="customerService" ref="customerService"></property>
+   	</bean>
+   	
    <!-- service -->
  	<bean name="userService" class="ek.zhou.crm.service.imp.UserServiceImp">
  		<property name="userDao" ref="userDao"></property>
@@ -46,6 +51,9 @@
  		<property name="linkmanDao" ref="linkmanDao"></property>
  	</bean>
  	
+ 	<bean name="saleVisitService" class="ek.zhou.crm.service.imp.SaleVisitServiceImp">
+ 		<property name="saleVisitDao" ref="saleVisitDao"></property>
+ 	</bean>
    <!-- dao -->
    <bean name="userDao" class="ek.zhou.crm.dao.imp.UserDaoImp">
  		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -62,6 +70,11 @@
  	 <bean name="linkmanDao" class="ek.zhou.crm.dao.imp.LinkmanDaoImp">
  		<property name="sessionFactory" ref="sessionFactory"></property>
  	</bean>
+ 	
+ 	 <bean name="saleVisitDao" class="ek.zhou.crm.dao.imp.SaleVisitDaoImp">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+ 	</bean>
+ 	
  	<!-- c3p0配置 -->
  	<bean name="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
  		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
@@ -93,6 +106,7 @@
  				<value>ek/zhou/crm/domain/Dictionary.hbm.xml</value>
  				<value>ek/zhou/crm/domain/Customer.hbm.xml</value>
  				<value>ek/zhou/crm/domain/Linkman.hbm.xml</value>
+ 				<value>ek/zhou/crm/domain/SaleVisit.hbm.xml</value>
  			</list>
  		</property>
  	</bean>

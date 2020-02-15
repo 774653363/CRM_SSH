@@ -1,5 +1,7 @@
 package ek.zhou.crm.web.action;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -48,8 +50,15 @@ public class UserAction extends ActionSupport{
 			return "success";
 		}
 	}
-	
-	
+	/**
+	 * 用户退出方法
+	 * @return
+	 */
+	public String exit(){
+		//移除Session中的用户信息
+		ServletActionContext.getRequest().getSession().removeAttribute("existUser");
+		return "login";
+	}
 	
 	
 	public UserService getUserService() {

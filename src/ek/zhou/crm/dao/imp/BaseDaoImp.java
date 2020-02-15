@@ -78,4 +78,10 @@ public class BaseDaoImp<T> extends HibernateDaoSupport implements BaseDao<T>{
 		}
 		return 0;
 	}
+
+
+	@Override
+	public T findById(String id) {
+		return (T) this.getHibernateTemplate().get(clazz, id);
+	}
 }
